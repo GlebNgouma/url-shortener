@@ -1,7 +1,7 @@
 services:
-  nestjs_starter_postgres: # Needs updating
+  url_shortener_postgres: # Needs updating
     image: postgres:alpine
-    container_name: nestjs_starter_postgres # Needs updating
+    container_name: url_shortener_postgres # Needs updating
     restart: always
     env_file:
       - .env
@@ -11,22 +11,22 @@ services:
     ports:
       - '5433:5432'
     volumes:
-      - nestjs_starter_postgres_data:/var/lib/postgresql/data # Needs updating
+      - url_shortener_postgres_data:/var/lib/postgresql/data # Needs updating
 
   nestjs_starter_redis: # Needs updating
     image: redis:alpine
-    container_name: nestjs_starter_redis # Needs updating
+    container_name: url_shortener_redis # Needs updating
     restart: always
     ports:
       - '6379:6379'
     volumes:
-      - nestjs_starter_redis_data:/data # Needs updating
+      - url_shortener_redis_data:/data # Needs updating
 
 networks:
   default:
-    name: nestjs_starter # Needs updating
+    name: url_shortener # Needs updating
 
 volumes:
-  nestjs_starter_postgres_data: # Needs updating
-  nestjs_starter_redis_data: # Needs updating
+  url_shortener_postgres_data: # Needs updating
+  url_shortener_redis_data: # Needs updating
 
