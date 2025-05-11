@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Res,
+  Query,
 } from '@nestjs/common';
 import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/create-url.dto';
@@ -14,6 +15,7 @@ import { UpdateUrlDto } from './dto/update-url.dto';
 import { Response } from 'express';
 import { UrlExistsPipe } from './pipes/url-exists.pipe';
 import { Url } from '@prisma/client';
+import { GetUrlsDto } from './dto/get-urls.dto';
 
 @Controller()
 export class UrlController {
@@ -25,8 +27,8 @@ export class UrlController {
   }
 
   @Get(`url`)
-  findAll() {
-    return this.urlService.findAll();
+  findAll(@Query() queryParmas: GetUrlsDto) {
+    return this.urlService.findAll(queryParmas);
   }
 
   // Le pipe renvoie l'url si elle existe, sinon il renvoie une erreur 404
@@ -40,11 +42,11 @@ export class UrlController {
     @Param('uid', UrlExistsPipe) url: Url,
     @Body() updateUrlDto: UpdateUrlDto,
   ) {
-    return this.urlService.update('url', updateUrlDto);
+    return this.urlService.update(url.id, updateUrlDto);
   }
 
   @Delete('url/:uid')
   remove(@Param('uid', UrlExistsPipe) url: Url) {
-    return this.urlService.remove('url');
+    return this.urlService.remove(url.id);
   }
 }
