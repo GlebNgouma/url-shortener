@@ -8,4 +8,5 @@ export default () => ({
     password: process.env.REDIS_PASSWORD,
   },
   host: process.env.HOST,
+  apiKey: process.env.API_KEY,
 });

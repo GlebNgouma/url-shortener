@@ -4,9 +4,10 @@ import { DatabaseService } from '../src/database/database.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
 import helmet from 'helmet';
+import { Server } from 'http';
 
 let app: INestApplication;
-let server: any;
+let server: Server;
 let cacheService: CacheService;
 let databaseService: DatabaseService;
 
@@ -20,10 +21,11 @@ beforeEach(async () => {
   app.useGlobalPipes(
     new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
   );
-  await app.init();
-  server = app.getHttpServer();
   cacheService = app.get<CacheService>(CacheService);
   databaseService = app.get<DatabaseService>(DatabaseService);
+
+  await app.init();
+  server = app.getHttpServer();
 });
 
 afterEach(async () => {
@@ -36,4 +38,4 @@ afterAll(async () => {
   await app.close();
 });
 
-export { server };
+export { server, app };
